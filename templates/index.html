@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBattle - Competitive Exam Quiz Contest</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b6b;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #6a5acd);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--warning);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--warning);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--dark);
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .features {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .exams {
+            padding: 5rem 0;
+            background-color: #f5f7ff;
+        }
+        
+        .exam-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .exam-img {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .exam-content {
+            padding: 1.5rem;
+        }
+        
+        .exam-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .pricing {
+            padding: 5rem 0;
+            background-color: #f5f7ff;
+            text-align: center;
+        }
+        
+        .price-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .price-card h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .price-card h2 span {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .price-features {
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .price-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .price-features i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--warning);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: modalopen 0.5s;
+        }
+        
+        @keyframes modalopen {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary);
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>BrainBattle</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#exams">Exams</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#" class="btn" id="join-now-btn">Join Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Test Your Knowledge, Win Real Money</h1>
+            <p>Compete with thousands of students in exciting quiz contests for UPSC, NEET, IIT, CAT and other government exams.</p>
+            <a href="#" class="btn btn-primary" id="hero-join-btn">Join Contest for ₹39</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why BrainBattle?</h2>
+                <p>We make exam preparation fun, competitive and rewarding with our unique quiz formats and real cash prizes.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fastest Finger First</h3>
+                    <p>Answer quickly to score bonus points and climb the leaderboard faster than your competitors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>Audio Questions</h3>
+                    <p>Test your listening and comprehension skills with our audio-based question formats.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Visual Challenges</h3>
+                    <p>Identify diagrams, charts and images relevant to your exam syllabus for extra points.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Tricky Puzzles</h3>
+                    <p>Solve logical puzzles and brain teasers that test your critical thinking abilities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Win Real Money</h3>
+                    <p>Top performers in each contest win cash prizes based on their scores and speed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance Analysis</h3>
+                    <p>Get detailed insights into your strengths and weaknesses after each contest.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="exams" id="exams">
+        <div class="container">
+            <div class="section-title">
+                <h2>Exam Categories</h2>
+                <p>We cover all major competitive exams with carefully curated questions from each domain.</p>
+            </div>
+            <div class="exam-cards">
+                <div class="exam-card">
+                    <div class="exam-img" style="background-image: url('https://images.unsplash.com/photo-1581093196277-1e316dc1b8f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="exam-content">
+                        <h3>UPSC Civil Services</h3>
+                        <p>GS, CSAT, Optional Subjects</p>
+                        <p>Next contest: Today 8 PM</p>
+                    </div>
+                </div>
+                <div class="exam-card">
+                    <div class="exam-img" style="background-image: url('https://images.unsplash.com/photo-1571260898933-d1ec5e10c10a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="exam-content">
+                        <h3>NEET & Medical</h3>
+                        <p>Biology, Chemistry, Physics</p>
+                        <p>Next contest: Tomorrow 7 PM</p>
+                    </div>
+                </div>
+                <div class="exam-card">
+                    <div class="exam-img" style="background-image: url('https://images.unsplash.com/photo-1509869175650-a1d97972541a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="exam-content">
+                        <h3>IIT-JEE Engineering</h3>
+                        <p>Maths, Physics, Chemistry</p>
+                        <p>Next contest: Today 9 PM</p>
+                    </div>
+                </div>
+                <div class="exam-card">
+                    <div class="exam-img" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="exam-content">
+                        <h3>CAT & MBA</h3>
+                        <p>Quant, DILR, Verbal</p>
+                        <p>Next contest: Tomorrow 8 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Join thousands of students in our daily quiz contests with just 3 simple steps.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Select Your Exam</h3>
+                        <p>Choose from UPSC, NEET, IIT-JEE, CAT or other government exams. We have specialized quizzes for each category.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Pay ₹39 Entry Fee</h3>
+                        <p>This small fee goes into the prize pool. The more participants, the bigger the prize money!</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Join the Live Contest</h3>
+                        <p>At the scheduled time, compete with others in a 40-question battle with various formats and time limits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple & Affordable</h2>
+                <p>For less than the price of a coffee, you could win big while preparing for your exams.</p>
+            </div>
+            <div class="price-card">
+                <h2>₹39 <span>per contest</span></h2>
+                <p>Entry fee for one quiz contest with chance to win cash prizes</p>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> 40 unique questions in 5+ formats</li>
+                    <li><i class="fas fa-check"></i> Live leaderboard during contest</li>
+                    <li><i class="fas fa-check"></i> Detailed performance analysis</li>
+                    <li><i class="fas fa-check"></i> Chance to win real money</li>
+                    <li><i class="fas fa-check"></i> Fun, competitive environment</li>
+                </ul>
+                <a href="#" class="btn btn-primary" id="pricing-join-btn">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BrainBattle</h3>
+                    <p>Making exam preparation fun, competitive and rewarding for students across India.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Exams</h3>
+                    <ul>
+                        <li><a href="#">UPSC Civil Services</a></li>
+                        <li><a href="#">NEET & Medical</a></li>
+                        <li><a href="#">IIT-JEE Engineering</a></li>
+                        <li><a href="#">CAT & MBA</a></li>
+                        <li><a href="#">Other Government Exams</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Contest Rules</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BrainBattle. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Join Now Modal -->
+    <div id="join-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join Quiz Contest</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="join-form" action="/join" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="exam">Select Exam</label>
+                    <select id="exam" name="exam" required>
+                        <option value="">-- Select Exam --</option>
+                        <option value="upsc">UPSC Civil Services</option>
+                        <option value="neet">NEET & Medical</option>
+                        <option value="iit">IIT-JEE Engineering</option>
+                        <option value="cat">CAT & MBA</option>
+                        <option value="government">Other Government Exams</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="time">Select Contest Time</label>
+                    <select id="time" name="time" required>
+                        <option value="">-- Select Time --</option>
+                        <option value="today8">Today 8 PM</option>
+                        <option value="today9">Today 9 PM</option>
+                        <option value="tomorrow7">Tomorrow 7 PM</option>
+                        <option value="tomorrow8">Tomorrow 8 PM</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" id="cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Proceed to Payment (₹39)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById("join-modal");
+        const joinBtns = document.querySelectorAll("#join-now-btn, #hero-join-btn, #pricing-join-btn");
+        const closeBtn = document.querySelector(".close");
+        const cancelBtn = document.getElementById("cancel-btn");
+        
+        // Open modal when any join button is clicked
+        joinBtns.forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            });
+        });
+        
+        // Close modal when X is clicked
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+        
+        // Close modal when cancel button is clicked
+        cancelBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+        
+        // Form submission
+        document.getElementById("join-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            // Here you would typically send the data to your backend
+            alert("Redirecting to payment gateway...");
+            // In a real app, you would redirect to payment page
+            // window.location.href = "/payment";
+        });
+    </script>
+</body>
+</html>
